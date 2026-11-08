@@ -88,7 +88,10 @@ def chamar_openrouter(
         # Tenta o ambiente uma última vez (ex.: chamada direta sem key explícita).
         api_key = os.getenv("OPENROUTER_API_KEY", "").strip()
     if not api_key:
-        raise RuntimeError("OPENROUTER_API_KEY não definida. Copie .env.example para .env e preencha.")
+        raise RuntimeError(
+            "OPENROUTER_API_KEY não definida. "
+            "Copie .env.example para .env e preencha."
+        )
 
     payload: dict[str, Any] = {
         "model": model,
@@ -197,7 +200,10 @@ def conversar(
                 nome = chamada.get("function", {}).get("name", "")
                 args_raw = chamada.get("function", {}).get("arguments", "{}")
                 try:
-                    args = json.loads(args_raw) if isinstance(args_raw, str) else dict(args_raw or {})
+                    if isinstance(args_raw, str):
+                        args = json.loads(args_raw)
+                    else:
+                        args = dict(args_raw or {})
                 except (json.JSONDecodeError, TypeError):
                     args = {}
                 resultado = executar_ferramenta(nome, args, df)
@@ -217,4 +223,7 @@ def conversar(
             return conversar(df, pergunta, historico=historico, modelo=MODELO_PADRAO)
         return f"⚠️ Erro ao falar com o modelo ({modelo_usado}): {exc}"
 
-    return "Limite de 10 rodadas de ferramentas atingido. Reformule a pergunta de forma mais simples."
+    return (
+        "Limite de 10 rodadas de ferramentas atingido. "
+        "Reformule a pergunta de forma mais simples."
+    )

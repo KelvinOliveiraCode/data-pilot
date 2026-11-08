@@ -11,19 +11,60 @@ from .graficos import (
     grafico_receita_por_categoria,
     grafico_top5_cidades,
 )
-from .metricas import (
-    clientes_unicos,
-    filtrar_periodo,
-    pedidos_concluidos,
-    receita_media_por_cliente,
-    receita_total,
-    taxa_cancelamento,
-    ticket_medio,
-)
+
+# Compatibilidade de API: o plano previa nomes curtos em ``metricas.py``,
+# mas a implementação das Fases 1+2 expõe ``calcular_*``. Importamos o que
+# existe e expomos aliases curtos quando necessário.
+try:
+    from .metricas import calcular_clientes_unicos as clientes_unicos
+    from .metricas import calcular_pedidos_concluidos as pedidos_concluidos
+    from .metricas import calcular_receita_media_por_cliente as receita_media_por_cliente
+    from .metricas import calcular_receita_total as receita_total
+    from .metricas import calcular_taxa_cancelamento as taxa_cancelamento
+    from .metricas import calcular_ticket_medio as ticket_medio
+    from .metricas import filtrar_periodo
+except ImportError:  # pragma: no cover - API curta do plano
+    from .metricas import (
+        clientes_unicos,  # type: ignore[no-redef]
+        filtrar_periodo,  # type: ignore[no-redef]
+        pedidos_concluidos,  # type: ignore[no-redef]
+        receita_media_por_cliente,  # type: ignore[no-redef]
+        receita_total,  # type: ignore[no-redef]
+        taxa_cancelamento,  # type: ignore[no-redef]
+        ticket_medio,  # type: ignore[no-redef]
+    )
 
 
 def _fmt_brl(valor: float) -> str:
     return f"R$ {valor:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".")
+
+
+def _col_data(df: pd.DataFrame) -> str | None:
+    if "data" in df.columns:
+        return "data"
+    if "data_pedido" in df.columns:
+        return "data_pedido"
+    return None
+
+
+def _filtrar_periodo_compat(df: pd.DataFrame, inicio, fim) -> pd.DataFrame:
+    """Chama filtrar_periodo aceitando date/datetime/str em qualquer API."""
+    try:
+        return filtrar_periodo(df, data_inicio=inicio, data_fim=fim)  # type: ignore[arg-type]
+    except TypeError:
+        # API alternativa pode exigir string
+        return filtrar_periodo(
+            df,
+            data_inicio=str(inicio) if inicio is not None else None,
+            data_fim=str(fim) if fim is not None else None,
+        )
+
+
+def _taxa_cancelamento(df: pd.DataFrame) -> float:
+    taxa = taxa_cancelamento(df)
+    # metricas reais devolve 0–100 (por cento); formato {:.1%} espera 0–1.
+    # Detecta: se >1, é percentual e já mostramos como %.
+    return taxa
 
 
 def render_painel(df: pd.DataFrame) -> None:
@@ -54,10 +95,11 @@ def render_painel(df: pd.DataFrame) -> None:
         )
 
         # Período: mínimo/máximo do dataset
+        col_data = _col_data(df)
         dmin = dmax = None
-        if "data_pedido" in df.columns and not df.empty:
-            dmin = pd.to_datetime(df["data_pedido"], errors="coerce").min()
-            dmax = pd.to_datetime(df["data_pedido"], errors="coerce").max()
+        if col_data and not df.empty:
+            dmin = pd.to_datetime(df[col_data], errors="coerce").min()
+            dmax = pd.to_datetime(df[col_data], errors="coerce").max()
         if pd.notna(dmin) and pd.notna(dmax):
             periodo = st.date_input(
                 "Período",
@@ -70,14 +112,13 @@ def render_painel(df: pd.DataFrame) -> None:
 
     # Aplica filtros
     df_f = df.copy()
-    # filtrar_periodo aceita tupla (início, fim) ou valores avulsos
     if periodo:
         if isinstance(periodo, (tuple, list)) and len(periodo) == 2:
-            df_f = filtrar_periodo(df_f, periodo[0], periodo[1])
+            df_f = _filtrar_periodo_compat(df_f, periodo[0], periodo[1])
         elif isinstance(periodo, (tuple, list)) and len(periodo) == 1:
-            df_f = filtrar_periodo(df_f, periodo[0], None)
+            df_f = _filtrar_periodo_compat(df_f, periodo[0], None)
         else:
-            df_f = filtrar_periodo(df_f, periodo, None)
+            df_f = _filtrar_periodo_compat(df_f, periodo, None)
 
     if cat_sel and cat_sel != "Todas" and "categoria" in df_f.columns:
         df_f = df_f[df_f["categoria"] == cat_sel]
@@ -102,25 +143,26 @@ def render_painel(df: pd.DataFrame) -> None:
     # 1 gráfico linha: receita mensal
     st.plotly_chart(grafico_receita_mensal(df_f), use_container_width=True)
 
-    # Distribuição de status sempre sobre o df filtrado pré-status?
-    # A especificação pede "sobre df completo" em graficos.py; no painel
-    # mostramos sobre o df com filtros categoria/período (sem status) p/ não
-    # esconder as outras fatias. Reaproveita df_f2 (sem filtro de status).
+    # Distribuição de status: sobre base SEM filtro de status (para não
+    # esconder as outras fatias) — a função em graficos.py já usa o df
+    # completo que recebe aqui (com período/categoria aplicados).
     df_status_base = df.copy()
     if periodo:
         if isinstance(periodo, (tuple, list)) and len(periodo) == 2:
-            df_status_base = filtrar_periodo(df_status_base, periodo[0], periodo[1])
+            df_status_base = _filtrar_periodo_compat(df_status_base, periodo[0], periodo[1])
         elif isinstance(periodo, (tuple, list)) and len(periodo) == 1:
-            df_status_base = filtrar_periodo(df_status_base, periodo[0], None)
+            df_status_base = _filtrar_periodo_compat(df_status_base, periodo[0], None)
         else:
-            df_status_base = filtrar_periodo(df_status_base, periodo, None)
+            df_status_base = _filtrar_periodo_compat(df_status_base, periodo, None)
     if cat_sel and cat_sel != "Todas" and "categoria" in df_status_base.columns:
         df_status_base = df_status_base[df_status_base["categoria"] == cat_sel]
-    st.plotly_chart(
-        grafico_distribuicao_status(df_status_base), use_container_width=True
-    )
+    st.plotly_chart(grafico_distribuicao_status(df_status_base), use_container_width=True)
 
     # Rodapé
     st.divider()
     st.write(f"Receita média por cliente: **{_fmt_brl(receita_media_por_cliente(df_f))}**")
-    st.write(f"Taxa de cancelamento: **{taxa_cancelamento(df_f):.1%}**")
+    taxa = _taxa_cancelamento(df_f)
+    if taxa > 1:  # já é percentual (0–100)
+        st.write(f"Taxa de cancelamento: **{taxa:.1f}%**")
+    else:
+        st.write(f"Taxa de cancelamento: **{taxa:.1%}**")

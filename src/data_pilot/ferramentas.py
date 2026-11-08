@@ -1,7 +1,8 @@
 """Ferramentas de tool-calling para o LLM (Fase 4).
 
-Cada métrica de `metricas.py` vira um descritor no formato OpenAI/OpenRouter:
-`{"type": "function", "function": {"name": ..., "description": ..., "parameters": {...json schema...}}}`.
+Cada métrica de `metricas.py` vira um descritor no formato
+OpenAI/OpenRouter: `{"type": "function", "function": {...}}`
+com nome, descrição em PT-BR e JSON Schema dos parâmetros.
 
 O LLM escolhe nome + argumentos; `executar_ferramenta` despacha para a
 função Python e devolve um dict JSON-serializável (DataFrames viram lista
@@ -21,7 +22,7 @@ from data_pilot import metricas
 
 _CATEGORIA_PARAM: dict[str, Any] = {
     "type": "string",
-    "description": "Categoria do produto (ex.: 'eletronicos', 'moveis', 'vestuario'). Omita para todas as categorias.",
+    "description": "Categoria do produto (ex.: eletronicos, moveis). Omita para todas.",
 }
 
 TOOLS: list[dict[str, Any]] = [
@@ -29,7 +30,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "receita_total",
-            "description": "Calcula a receita total em reais de pedidos concluídos. Use para perguntas como 'quanto vendemos?', 'qual a receita total?' ou 'faturamento'.",
+            "description": "Calcula a receita total de pedidos concluidos.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -43,7 +44,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "pedidos_concluidos",
-            "description": "Conta quantos pedidos foram concluídos. Use para 'quantos pedidos?', 'número de vendas concluídas?'.",
+            "description": "Conta pedidos concluidos.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -57,7 +58,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "ticket_medio",
-            "description": "Calcula o ticket médio (receita de concluídos dividida por pedidos concluídos). Use para 'ticket médio?', 'valor médio por pedido?'.",
+            "description": "Calcula o ticket medio (receita / pedidos).",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -71,7 +72,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "clientes_unicos",
-            "description": "Conta clientes distintos com ao menos um pedido concluído. Use para 'quantos clientes únicos?', 'base de clientes?'.",
+            "description": "Conta clientes unicos com pedido concluido.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -85,7 +86,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "taxa_cancelamento",
-            "description": "Calcula a taxa de cancelamento em porcentagem (cancelados dividido pelo total de pedidos). Use para 'taxa de cancelamento?', 'quantos cancelaram?'.",
+            "description": "Calcula taxa de cancelamento em %.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -99,7 +100,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "receita_media_por_cliente",
-            "description": "Calcula a receita média por cliente (receita total de concluídos dividida por clientes únicos). Use para 'receita média por cliente?', 'quanto cada cliente gera em média?'.",
+            "description": "Calcula receita media por cliente.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -113,7 +114,7 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "top5_cidades_receita",
-            "description": "Lista as 5 cidades com maior receita de pedidos concluídos, em ordem decrescente. Use para 'quais cidades mais vendem?', 'top cidades?'.",
+            "description": "Lista top-5 cidades por receita.",
             "parameters": {
                 "type": "object",
                 "properties": {},
@@ -125,17 +126,17 @@ TOOLS: list[dict[str, Any]] = [
         "type": "function",
         "function": {
             "name": "filtrar_periodo",
-            "description": "Filtra o DataFrame por período (data_inicio e/ou data_fim) e opcionalmente por categoria. Use para perguntas com intervalo de datas, ex.: 'vendas em janeiro', 'receita entre 2024-01-01 e 2024-03-31'. Retorna lista de registros filtrados.",
+            "description": "Filtra por periodo (data_inicio/data_fim) e categoria.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "data_inicio": {
                         "type": "string",
-                        "description": "Data inicial no formato YYYY-MM-DD (inclusive). Omita se não houver início.",
+                        "description": "Data inicial YYYY-MM-DD (inclusive).",
                     },
                     "data_fim": {
                         "type": "string",
-                        "description": "Data final no formato YYYY-MM-DD (inclusive). Omita se não houver fim.",
+                        "description": "Data final YYYY-MM-DD (inclusive).",
                     },
                     "categoria": _CATEGORIA_PARAM,
                 },

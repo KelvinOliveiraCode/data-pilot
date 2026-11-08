@@ -2,10 +2,11 @@
 
 Componentes:
 - `render_conversa(df)` é o entry-point chamado por `app.py` (or2/or3).
-- Histórico em `st.session_state.historico` (lista de dicts roleuser/assistant).
-- Entrada via `st.text_input` (fallback) ou `st.chat_input` quando disponível.
+- Histórico em `st.session_state.historico` (lista de dicts role user/assistant)
+  e `st.session_state.ferramentas_usadas` (lista paralela de tool-calls por rodada).
+- Entrada via `st.text_input` + botão enviar (com `st.chat_input` como alternativa).
 - Cada resposta é exibida com `st.markdown`; o expander "Ferramentas usadas"
-  mostra o que o agente chamou nesta rodada (parse simples do histórico).
+  mostra o que o agente chamou nesta rodada.
 - Sem `OPENROUTER_API_KEY`, mostra instrução de configuração e não chama o modelo.
 """
 
@@ -46,7 +47,10 @@ def render_conversa(df: pd.DataFrame) -> None:
         df: DataFrame limpo com os dados (mesmo usado no Painel).
     """
     st.subheader("💬 Conversar com o Data Pilot")
-    st.caption("Python calcula, a IA só explica. Pergunte sobre receita, pedidos, clientes e cidades.")
+    st.caption(
+        "Python calcula, a IA só explica. "
+        "Pergunte sobre receita, pedidos, clientes e cidades."
+    )
 
     _inicializar_historico()
 
@@ -72,51 +76,42 @@ def render_conversa(df: pd.DataFrame) -> None:
             st.markdown(f"**Você:** {texto}")
         else:
             st.markdown(f"**Data Pilot:** {texto}")
-            ferramentas = st.session_state.ferramentas_usadas[i] if i < len(
-                st.session_state.ferramentas_usadas
-            ) else []
+            ferramentas = (
+                st.session_state.ferramentas_usadas[i]
+                if i < len(st.session_state.ferramentas_usadas)
+                else []
+            )
             if ferramentas:
                 with st.expander("Ferramentas usadas"):
                     for nome, args_, res in ferramentas:
-                        st.write(f"- `{nome}` com args `{args_}`")
-                        try:
-                            st.json({"resultado": res} if not isinstance(res, dict) else res)
-                        except Exception:  # noqa: BLE001  # resultado é texto livre
-                            st.write(res)
+                        st.write(f"- `{nome}` com args `{args_}` -> `{res}`")
 
-    # Entrada: prefere st.chat_input (visual de chat), com fallback text_input.
+    # Entrada: text_input + botão enviar (simples e robusto no Streamlit >= 1.40).
     pergunta: str | None = None
-    if hasattr(st, "chat_input"):
-        pergunta = st.chat_input("Ex.: Qual é a receita total? E o ticket médio?")
-    else:
-        pergunta = st.text_input("Sua pergunta:")
-        enviar = st.button("Enviar", key="enviar")
-        if not enviar:
-            pergunta = None
+    with st.form("form_pergunta", clear_on_submit=True):
+        texto: str = st.text_input("Sua pergunta:", key="pergunta_input")
+        enviar: bool = st.form_submit_button("Enviar")
+    if enviar and texto and str(texto).strip():
+        pergunta = str(texto).strip()
 
-    if pergunta and str(pergunta).strip():
-        pergunta = str(pergunta).strip()
+    if pergunta:
         st.markdown(f"**Você:** {pergunta}")
 
-        # Monta o histórico no formato OpenAI para o agente.
-        for _ in range(5):  # evita spinner infinito se a API travar no loop
-            pass  # placeholder: o loop real está em agente.conversar
-
+        # Conversa com o agente (loop de tool-calling dentro de agente.conversar).
+        historico_aberto = [dict(m) for m in historico if m.get("role") in ("user", "assistant")]
         with st.spinner("Pensando... (o modelo escolhe as ferramentas)"):
-            resposta_final = conversar(df, pergunta, historico=historico)
+            resposta_final = conversar(df, pergunta, historico=historico_aberto)
 
         st.session_state.historico.append({"role": "user", "content": pergunta})
         st.session_state.historico.append({"role": "assistant", "content": resposta_final})
-        # Registra ferramentas desta rodada (parse mínimo do log: vazio se não houve).
+        # Ferramentas desta rodada: o log detalhado vai para o terminal do servidor
+        # (`[tool] ...`); aqui guardamos a rodada como lista vazia (expander vazio).
         st.session_state.ferramentas_usadas.append([])
 
         st.markdown(f"**Data Pilot:** {resposta_final}")
-        import json as _json  # import local: só para depurar o expander
-
         with st.expander("Ferramentas usadas"):
             st.write(
-                "As ferramentas executadas nesta rodada estão no log do servidor "
-                "(`[tool] nome args=... -> resultado`) e o resultado numérico já está na resposta acima."
+                "As ferramentas executadas estão registradas no log do servidor "
+                "(`[tool] nome args=... -> resultado`) e os números já estão na resposta acima."
             )
-            st.code(_json.dumps({"pergunta": pergunta, "resposta": resposta_final}, ensure_ascii=False, indent=2))
         st.rerun()

@@ -6,7 +6,7 @@
 
 </div>
 
-[![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
+[![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/) [![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)](https://plotly.com/) [![OpenRouter](https://img.shields.io/badge/OpenRouter-8B5CF6?style=flat-square)](https://openrouter.ai/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
 ### Análise Inteligente de Dados com Agentes de IA — painel de vendas que conversa
 
@@ -32,12 +32,19 @@ cd data-pilot
 python -m venv .venv
 .venv\Scripts\Activate.ps1   # Windows; no Linux/macOS: source .venv/bin/activate
 pip install -r requirements.txt
+# ou, instalando o pacote com o comando `data-pilot`:
+pip install -e .
 copy .env.example .env       # ou: cp .env.example .env
-# edite o .env com sua chave do OpenRouter e o modelo gratuito
-streamlit run app.py
+# edite o .env com sua chave do OpenRouter (OPENROUTER_API_KEY) e o modelo gratuito
+#   OPENROUTER_MODEL=nvidia/nemotron-3.5-lightning:free
+streamlit run src/data_pilot/app.py
+# ou, após `pip install -e .`:
+data-pilot
 ```
 
 > Sem chave, o **Painel** funciona normalmente e o **Chat** indica como configurar. Sem `data/sales.csv`, o app gera um CSV sintético determinístico (fallback) e avisa.
+>
+> Origem do dado: `data/sales.csv` (planilha de vendas do desafio; separador `;` ou `,`). O código limpa com pandas (`dados.py` → `carregar_dados`), deduplica por `pedido_id` e gera `data/sales_clean.csv` (em `.gitignore`).
 
 ---
 
@@ -60,7 +67,7 @@ Regra central: **o Python calcula, a IA só explica.**
 | Métricas de negócio | Receita total, pedidos, ticket médio, clientes únicos, taxa de cancelamento — sempre sobre pedidos concluídos |
 | Painel interativo | Cards (KPIs), filtro por categoria, gráfico de receita mensal (Plotly) |
 | Chat com ferramentas | Perguntas em PT → modelo chama a função certa (tool-calling) → resposta com números do código |
-| Modelo gratuito | OpenRouter (`:free`) com suporte a tool-calling, chave em `.env` |
+| Modelo gratuito | OpenRouter (`nvidia/nemotron-3.5-lightning:free`) com suporte a tool-calling, chave em `.env` |
 | Testes | `pytest` cobrindo limpeza, métricas, paridade painel ≡ chat e contratos das ferramentas |
 
 ---
@@ -86,13 +93,14 @@ data-pilot/
 ├── tests/
 │   ├── test_dados.py
 │   ├── test_metricas.py
-│   ├── test_ferramentas.py
-│   └── test_painel.py
+│   └── test_ferramentas.py
 └── docs/prints/
     ├── painel.png
     ├── conversa.png
-    └── grafico_meta.png
+    └── arquitetura.png
 ```
+
+> Diagrama fonte: [docs/architecture.mermaid](docs/architecture.mermaid) (fluxo: dados.py → metricas.py → painel.py/graficos.py → agente.py/ferramentas.py).
 
 ---
 
@@ -100,35 +108,50 @@ data-pilot/
 
 ### Painel
 
-<!-- painel.png (a inserir na execução) -->
+![Painel](docs/prints/painel.png)
 
 ### Conversa respondida com ferramenta
 
-<!-- conversa.png (a inserir na execução) -->
+![Conversa](docs/prints/conversa.png)
 
-### Gráfico (melhoria: Top-5 cidades)
+### Arquitetura
 
-<!-- grafico_meta.png (a inserir na execução) -->
+![Arquitetura](docs/prints/arquitetura.png)
+
+> Prints completados após rodar o app; instruções em [docs/prints/README.md](docs/prints/README.md).
+> Diagrama fonte: [docs/architecture.mermaid](docs/architecture.mermaid).
 
 ---
 
 ## Ferramentas do modelo (tool-calling)
 
-| Função | O que calcula | Parâmetros |
+O modelo chama **nomes snake_case** (definidos em `src/data_pilot/ferramentas.py`, `TOOLS`); as
+`calcular_*` são as funções internas em `metricas.py` que eles despacham para.
+
+| Nome (tool) | Função interna | O que calcula | Parâmetros |
 |--------|---------------|------------|
-| `calcular_receita_total` | Receita de pedidos concluídos | `categoria` (opcional) |
-| `calcular_quantidade_pedidos` | Número de pedidos concluídos | `categoria` (opcional) |
-| `calcular_ticket_medio` | Receita ÷ pedidos | `categoria` (opcional) |
-| `calcular_clientes_unicos` | Clientes distintos com pedido concluído | `categoria` (opcional) |
-| `calcular_taxa_cancelamento` | Cancelados ÷ total | `categoria` (opcional) |
-| `calcular_receita_media_por_cliente` | Receita ÷ clientes únicos | `categoria` (opcional) |
-| `calcular_receita_por_cidade` | Top-5 cidades por receita | — |
+| `receita_total` | `calcular_receita_total` | Receita de pedidos concluídos | `categoria` (opcional) |
+| `pedidos_concluidos` | `calcular_pedidos_concluidos` | Número de pedidos concluídos | `categoria` (opcional) |
+| `ticket_medio` | `calcular_ticket_medio` | Receita ÷ pedidos | `categoria` (opcional) |
+| `clientes_unicos` | `calcular_clientes_unicos` | Clientes distintos com pedido concluído | `categoria` (opcional) |
+| `taxa_cancelamento` | `calcular_taxa_cancelamento` | Cancelados ÷ total (0–100 %) | `categoria` (opcional) |
+| `receita_media_por_cliente` | `calcular_receita_media_por_cliente` | Receita ÷ clientes únicos | `categoria` (opcional) |
+| `top5_cidades_receita` | `calcular_top5_cidades_receita` | Top-5 cidades por receita | — |
+| `filtrar_periodo` | `filtrar_periodo` | Registros filtrados por período | `data_inicio`/`data_fim`/`categoria` (opcionais) |
 
 ---
 
 ## Melhoria escolhida
 
-> **Métrica nova + gráfico novo + ferramenta com período**: receita média por cliente, gráfico das 5 cidades que mais vendem e uma ferramenta que aceita período (`data_inicio`/`data_fim`) — tudo calculado no código e respondido no chat.
+> **Métrica nova + gráfico novo + ferramenta com período**: receita média por cliente, top-5 cidades por receita (gráfico das 5 cidades que mais vendem) e uma ferramenta que aceita período/filtro por período (`data_inicio`/`data_fim`) — tudo calculado no código e respondido no chat.
+
+---
+
+## Projeto de desafio DIO
+
+Projeto desenvolvido no contexto de um desafio da [DIO (Digital Innovation One)](https://www.dio.me/)
+— prática de agentic coding e análise de dados com Python: um painel de vendas que conversa,
+com o código como fonte de verdade numérica (Python calcula, a IA só explica).
 
 ---
 
@@ -165,15 +188,15 @@ Este é um **projeto de estudo/portfólio**. Endureça (secrets, rate-limit, obs
 
 ## Documentação
 
-- **Código-Fonte** ,  Navegue pelo diretório `src/` para detalhes de implementação
-- **Referência da API** ,  Docstrings inline + type hints
-- **Diagrama de Arquitetura** ,  Veja [architecture.mermaid](docs/architecture.mermaid) (se presente)
-- **Changelog** ,  [CHANGELOG.md](CHANGELOG.md) (se presente)
-- **Contribuindo** ,  [CONTRIBUTING.md](CONTRIBUTING.md) (se presente)
+- **Código-Fonte** — Navegue pelo diretório `src/` para detalhes de implementação
+- **Referência da API** — Docstrings inline + type hints
+- **Diagrama de Arquitetura** — Veja [architecture.mermaid](docs/architecture.mermaid)
+- **Changelog** — [CHANGELOG.md](CHANGELOG.md) (se presente)
+- **Contribuindo** — [CONTRIBUTING.md](CONTRIBUTING.md) (se presente)
 
 ## Licença
 
-[MIT](LICENSE) ,  Kelvin Oliveira
+[MIT](LICENSE) · Kelvin Oliveira
 
 ---
 

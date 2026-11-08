@@ -1,0 +1,47 @@
+%% Data Pilot - painel de vendas que conversa (arquitetura em camadas)
+%% Fase 5/6: diagrama de arquitetura (Mermaid)
+%% Regra central: o Python calcula, a IA so explica.
+
+graph TD
+    subgraph Entrada["Entrada"]
+        CSV["sales.csv<br/>data/sales.csv<br/>sep ; ou ,"]
+    end
+
+    subgraph CamadaDados["Camada de dados - pandas"]
+        DADOS["dados.py<br/>carregar_dados() + normalizar_status()"]
+        LIMPO["sales_clean.csv (.gitignore)<br/>receita = quantidade x valor_unitario"]
+    end
+
+    subgraph CamadaMetricas["Camada de metricas - deterministica"]
+        METRICAS["metricas.py<br/>8 funcoes calcular_*/filtrar_periodo<br/>(concluidos + filtros)"]
+    end
+
+    subgraph CamadaApresentacao["Apresentacao - Streamlit + Plotly"]
+        PAINEL["painel.py<br/>KPIs + filtros"]
+        GRAFICOS["graficos.py<br/>receita mensal, top-5 cidades,<br/>status, categoria"]
+    end
+
+    subgraph CamadaAgente["Agente - tool-calling"]
+        FERRAMENTAS["ferramentas.py<br/>TOOLS (8)<br/>executar_ferramenta()"]
+        AGENTE["agente.py<br/>conversar() - loop ate 10 rodadas<br/>OpenRouter"]
+        CONVERSA["conversa.py<br/>render_conversa() - chat"]
+        LLM["OpenRouter<br/>nvidia/nemotron-3.5-lightning:free (via .env)"]
+    end
+
+    subgraph App["App"]
+        APP["app.py - main()<br/>tabs Painel / Conversa"]
+    end
+
+    CSV --> DADOS
+    DADOS --> LIMPO
+    DADOS --> METRICAS
+    METRICAS --> PAINEL
+    METRICAS --> GRAFICOS
+    PAINEL --> APP
+    GRAFICOS --> PAINEL
+    METRICAS --> FERRAMENTAS
+    FERRAMENTAS --> AGENTE
+    AGENTE --> LLM
+    AGENTE --> CONVERSA
+    CONVERSA --> APP
+    APP --> CSV
