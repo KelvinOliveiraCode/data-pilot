@@ -1,7 +1,7 @@
 [project]
 name = "data-pilot"
 version = "0.1.0"
-description = "Data Pilot - painel de vendas em Python que conversa: pandas + Streamlit/Plotly + agente com tool-calling via OpenRouter (Python calcula, a IA so explica)."
+description = "Projeto final DIO Data Pipeline / Agentic Coding: Data Pilot — painel de vendas em Python (Streamlit, Plotly, pandas) com 2 menus (painel + chat) e 8 métricas determinísticas. Python calcula, a IA só explica (OpenRouter tool-calling, modelo gratuito)."
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [

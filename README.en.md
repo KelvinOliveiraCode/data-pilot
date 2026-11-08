@@ -8,7 +8,9 @@
 
 [![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/) [![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)](https://plotly.com/) [![OpenRouter](https://img.shields.io/badge/OpenRouter-8B5CF6?style=flat-square)](https://openrouter.ai/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
-### Intelligent Data Analysis with AI Agents — a sales dashboard that talks
+### DIO final project — Intelligent Data Analysis with AI Agents
+
+> **Full description for DIO:** interactive sales dashboard built as the **final project of the DIO Data Pipeline / Agentic Coding challenge** — two views (business dashboard + natural-language chat), 8 deterministic Python metric functions (total revenue, completed orders, average ticket, unique customers, cancellation rate, average revenue per customer, top-5 cities by revenue and period filtering), 8 tool-calling functions exposed to the model, a Streamlit dashboard with 4 KPIs and 4 Plotly charts, chat via OpenRouter with the free model `nvidia/nemotron-3.5-lightning:free`, a `.env` file ignored by Git, 70 automated tests and real application screenshots — demonstrating in practice the rule “Python computes, the AI only explains”.
 
 ---
 
@@ -147,11 +149,16 @@ The model calls **snake_case names** (defined in `src/data_pilot/ferramentas.py`
 
 ---
 
-## DIO challenge project
+## DIO final project
 
-Project developed in the context of a [DIO (Digital Innovation One)](https://www.dio.me/) challenge
-— hands-on practice of agentic coding and data analysis with Python: a sales dashboard that talks,
-with code as the numeric source of truth (Python computes; the AI only explains).
+Project developed as the **final project of the DIO Data Pipeline / Agentic Coding track**
+([Digital Innovation One](https://www.dio.me/)) — delivered:
+
+- **Business dashboard** (Streamlit + Plotly): KPIs for total revenue, completed orders, average ticket and unique customers, with category, period and status filters, plus charts for revenue by category, top-5 cities by revenue, monthly revenue and order distribution by status.
+- **Natural-language chat** (OpenRouter, free model `nvidia/nemotron-3.5-lightning:free`): the user asks in Portuguese and the agent answers using only numbers produced by Python functions (`receita_total`, `pedidos_concluidos`, `ticket_medio`, `clientes_unicos`, `taxa_cancelamento`, `receita_media_por_cliente`, `top5_cidades_receita`, `filtrar_periodo`).
+- **Architecture without an agent framework**: `pandas` cleans and enriches the CSV (`;` or `,`), 8 deterministic functions answer each business question, the dashboard and chat share the same functions — identical numbers in both views.
+- **Quality**: 70 automated tests (data, metrics, tools, charts, dashboard/chat and integration), clean `ruff`, `.env` ignored by Git (only `.env.example` exists), `data/sales.csv` with deterministic synthetic fallback and real screenshots in `docs/prints/`.
+- **Core rule demonstrated**: Python computes, the AI only explains — the model picks which tool to run, but never invents numbers.
 
 ---
 

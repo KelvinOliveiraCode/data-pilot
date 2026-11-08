@@ -8,7 +8,9 @@
 
 [![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/) [![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)](https://plotly.com/) [![OpenRouter](https://img.shields.io/badge/OpenRouter-8B5CF6?style=flat-square)](https://openrouter.ai/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
-### Análise Inteligente de Dados com Agentes de IA — painel de vendas que conversa
+### Projeto final DIO — Análise Inteligente de Dados com Agentes de IA
+
+> **Descrição completa para a DIO:** painel de vendas interativo desenvolvido como **projeto final do desafio DIO de Data Pipeline / Agentic Coding** — dois menus (painel de negócio + conversa em linguagem natural), 8 funções determinísticas de métricas em Python (receita total, pedidos concluídos, ticket médio, clientes únicos, taxa de cancelamento, receita média por cliente, top-5 cidades por receita e filtro por período), 8 ferramentas de tool-calling expostas ao modelo, painel Streamlit com 4 KPIs e 4 gráficos Plotly, chat via OpenRouter com modelo **gratuito** `nvidia/nemotron-3.5-lightning:free`, arquivo de configuração `.env` ignorado pelo Git, 70 testes automatizados e prints reais do aplicativo — tudo para demonstrar na prática a regra “Python calcula, a IA só explica”.
 
 ---
 
@@ -147,11 +149,16 @@ O modelo chama **nomes snake_case** (definidos em `src/data_pilot/ferramentas.py
 
 ---
 
-## Projeto de desafio DIO
+## Projeto final DIO
 
-Projeto desenvolvido no contexto de um desafio da [DIO (Digital Innovation One)](https://www.dio.me/)
-— prática de agentic coding e análise de dados com Python: um painel de vendas que conversa,
-com o código como fonte de verdade numérica (Python calcula, a IA só explica).
+Projeto desenvolvido como **projeto final da trilha DIO de Data Pipeline / Agentic Coding**
+([Digital Innovation One](https://www.dio.me/)) — entregues:
+
+- **Painel de negócio** (Streamlit + Plotly): KPIs de receita total, pedidos concluídos, ticket médio e clientes únicos, com filtros de categoria, período e status, além de gráficos de receita por categoria, top-5 cidades por receita, receita mensal e distribuição de pedidos por status.
+- **Chat em linguagem natural** (OpenRouter, modelo gratuito `nvidia/nemotron-3.5-lightning:free`): o usuário pergunta em português e o agente responde citando apenas números produzidos por funções Python (`receita_total`, `pedidos_concluidos`, `ticket_medio`, `clientes_unicos`, `taxa_cancelamento`, `receita_media_por_cliente`, `top5_cidades_receita`, `filtrar_periodo`).
+- **Arquitetura sem framework de agentes**: `pandas` limpa e enriquece o CSV (`;` ou `,`), 8 funções determinísticas respondem cada pergunta de negócio, o painel e o chat compartilham as mesmas funções — números idênticos nos dois menus.
+- **Qualidade**: 70 testes automatizados (dados, métricas, ferramentas, gráficos, painel/conversa e integração), `ruff` limpo, `.env` ignorado pelo Git (só existe `.env.example`), `data/sales.csv` com fallback sintético determinístico e prints reais em `docs/prints/`.
+- **Regra central demonstrada**: Python calcula, a IA só explica — o modelo escolhe qual ferramenta executar, mas nunca inventa números.
 
 ---
 
