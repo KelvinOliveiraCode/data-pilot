@@ -1,0 +1,206 @@
+pedido_id,data_pedido,cliente,produto,categoria,cidade,estado,quantidade,valor_unitario,status,receita
+PED-0096,2024-07-09,Cliente 009,Notebook,Monitores,Rio de Janeiro,PR,1,1568,pendente,1568
+PED-0016,2024-01-31,Cliente 024,Teclado,Impressoras,Curitiba,CE,5,386,concluido,1930
+PED-0031,2024-03-01,Cliente 014,Monitor,Periféricos,Curitiba,RJ,3,2473,concluido,7419
+PED-0159,2024-11-12,Cliente 016,Mouse,Impressoras,São Paulo,CE,2,353,concluido,706
+PED-0129,2024-09-13,Cliente 018,Mouse,Mobiliário,Belo Horizonte,MG,3,2041,concluido,6123
+PED-0116,2024-08-18,Cliente 018,Notebook,Periféricos,Curitiba,MG,3,931,concluido,2793
+PED-0070,2024-05-18,Cliente 015,Notebook,Mobiliário,São Paulo,SP,1,193,concluido,193
+PED-0171,2024-12-06,Cliente 004,Monitor,Mobiliário,Curitiba,RJ,4,2648,concluido,10592
+PED-0175,2024-12-14,Cliente 021,Cadeira,Periféricos,Fortaleza,SP,1,2667,concluido,2667
+PED-0046,2024-03-31,Cliente 030,Mouse,Computadores,Rio de Janeiro,SP,1,2957,concluido,2957
+PED-0067,2024-05-12,Cliente 028,Monitor,Periféricos,Belo Horizonte,CE,5,212,concluido,1060
+PED-0183,2024-12-30,Cliente 015,Cadeira,Periféricos,São Paulo,MG,4,1072,cancelado,4288
+PED-0166,2024-11-26,Cliente 025,Notebook,Periféricos,Curitiba,MG,1,102,concluido,102
+PED-0079,2024-06-05,Cliente 017,Mouse,Computadores,Belo Horizonte,MG,3,73,cancelado,219
+PED-0187,2025-01-07,Cliente 005,Mouse,Impressoras,São Paulo,PR,1,1703,cancelado,1703
+PED-0178,2024-12-20,Cliente 005,Impressora,Computadores,São Paulo,MG,1,2268,cancelado,2268
+PED-0057,2024-04-22,Cliente 017,Impressora,Periféricos,Curitiba,RJ,3,704,concluido,2112
+PED-0153,2024-10-31,Cliente 028,Teclado,Impressoras,São Paulo,PR,3,1512,concluido,4536
+PED-0083,2024-06-13,Cliente 005,Impressora,Periféricos,Fortaleza,MG,5,1210,cancelado,6050
+PED-0069,2024-05-16,Cliente 003,Notebook,Periféricos,Fortaleza,MG,2,2861,concluido,5722
+PED-0125,2024-09-05,Cliente 026,Cadeira,Periféricos,Curitiba,RJ,5,2605,concluido,13025
+PED-0017,2024-02-02,Cliente 016,Mouse,Mobiliário,Rio de Janeiro,SP,2,1545,concluido,3090
+PED-0149,2024-10-23,Cliente 025,Teclado,Computadores,Rio de Janeiro,CE,4,2217,concluido,8868
+PED-0094,2024-07-05,Cliente 012,Teclado,Computadores,Fortaleza,CE,2,63,pendente,126
+PED-0066,2024-05-10,Cliente 010,Notebook,Mobiliário,Curitiba,PR,2,159,concluido,318
+PED-0061,2024-04-30,Cliente 028,Impressora,Impressoras,São Paulo,CE,4,834,concluido,3336
+PED-0085,2024-06-17,Cliente 019,Monitor,Monitores,São Paulo,CE,2,1176,cancelado,2352
+PED-0068,2024-05-14,Cliente 012,Monitor,Computadores,Fortaleza,CE,4,1149,concluido,4596
+PED-0126,2024-09-07,Cliente 017,Teclado,Periféricos,São Paulo,CE,5,603,concluido,3015
+PED-0133,2024-09-21,Cliente 003,Teclado,Periféricos,Fortaleza,RJ,4,1303,concluido,5212
+PED-0010,2024-01-19,Cliente 003,Impressora,Periféricos,Fortaleza,CE,3,2891,concluido,8673
+PED-0019,2024-02-06,Cliente 026,Monitor,Periféricos,São Paulo,PR,1,2437,concluido,2437
+PED-0056,2024-04-20,Cliente 002,Mouse,Computadores,Belo Horizonte,CE,5,300,concluido,1500
+PED-0076,2024-05-30,Cliente 015,Monitor,Impressoras,Curitiba,MG,1,2154,cancelado,2154
+PED-0151,2024-10-27,Cliente 026,Notebook,Impressoras,Fortaleza,SP,2,227,concluido,454
+PED-0105,2024-07-27,Cliente 024,Notebook,Periféricos,São Paulo,MG,2,1851,concluido,3702
+PED-0136,2024-09-27,Cliente 010,Impressora,Periféricos,Curitiba,CE,1,2996,concluido,2996
+PED-0138,2024-10-01,Cliente 001,Teclado,Periféricos,Rio de Janeiro,SP,2,924,concluido,1848
+PED-0165,2024-11-24,Cliente 013,Mouse,Mobiliário,Rio de Janeiro,CE,3,1686,concluido,5058
+PED-0077,2024-06-01,Cliente 010,Monitor,Mobiliário,Belo Horizonte,MG,4,1988,cancelado,7952
+PED-0080,2024-06-07,Cliente 021,Mouse,Periféricos,Fortaleza,PR,5,2603,cancelado,13015
+PED-0198,2025-01-29,Cliente 004,Teclado,Impressoras,Belo Horizonte,RJ,5,1977,pendente,9885
+PED-0039,2024-03-17,Cliente 009,Teclado,Periféricos,Curitiba,SP,3,928,concluido,2784
+PED-0025,2024-02-18,Cliente 024,Impressora,Monitores,Curitiba,PR,5,1279,concluido,6395
+PED-0123,2024-09-01,Cliente 020,Notebook,Periféricos,Fortaleza,MG,2,1671,concluido,3342
+PED-0196,2025-01-25,Cliente 003,Cadeira,Impressoras,Rio de Janeiro,PR,4,1792,pendente,7168
+PED-0030,2024-02-28,Cliente 014,Teclado,Impressoras,Rio de Janeiro,SP,2,900,concluido,1800
+PED-0020,2024-02-08,Cliente 014,Cadeira,Computadores,São Paulo,CE,1,1348,concluido,1348
+PED-0144,2024-10-13,Cliente 013,Notebook,Periféricos,Rio de Janeiro,MG,5,1745,concluido,8725
+PED-0087,2024-06-21,Cliente 003,Mouse,Monitores,Belo Horizonte,SP,5,2728,cancelado,13640
+PED-0115,2024-08-16,Cliente 016,Teclado,Mobiliário,Fortaleza,MG,1,2712,concluido,2712
+PED-0174,2024-12-12,Cliente 022,Monitor,Periféricos,Curitiba,MG,1,1290,concluido,1290
+PED-0006,2024-01-11,Cliente 026,Teclado,Computadores,Belo Horizonte,PR,5,2714,concluido,13570
+PED-0127,2024-09-09,Cliente 003,Teclado,Mobiliário,Curitiba,MG,5,2054,concluido,10270
+PED-0118,2024-08-22,Cliente 005,Impressora,Periféricos,Belo Horizonte,PR,3,1791,concluido,5373
+PED-0074,2024-05-26,Cliente 004,Cadeira,Monitores,São Paulo,SP,3,2042,concluido,6126
+PED-0141,2024-10-07,Cliente 030,Notebook,Impressoras,Fortaleza,PR,5,1625,concluido,8125
+PED-0099,2024-07-15,Cliente 020,Teclado,Mobiliário,São Paulo,SP,1,1615,pendente,1615
+PED-0173,2024-12-10,Cliente 024,Monitor,Periféricos,São Paulo,MG,2,1376,concluido,2752
+PED-0097,2024-07-11,Cliente 008,Cadeira,Periféricos,Curitiba,MG,5,825,pendente,4125
+PED-0170,2024-12-04,Cliente 001,Impressora,Computadores,Rio de Janeiro,SP,5,1921,concluido,9605
+PED-0098,2024-07-13,Cliente 021,Monitor,Monitores,Belo Horizonte,SP,4,2047,pendente,8188
+PED-0032,2024-03-03,Cliente 007,Cadeira,Impressoras,Rio de Janeiro,RJ,1,2214,concluido,2214
+PED-0013,2024-01-25,Cliente 023,Impressora,Periféricos,Curitiba,PR,2,1409,concluido,2818
+PED-0036,2024-03-11,Cliente 002,Impressora,Periféricos,Curitiba,PR,4,1072,concluido,4288
+PED-0120,2024-08-26,Cliente 004,Impressora,Computadores,Belo Horizonte,PR,3,1220,concluido,3660
+PED-0043,2024-03-25,Cliente 022,Mouse,Periféricos,Fortaleza,CE,3,2891,concluido,8673
+PED-0190,2025-01-13,Cliente 010,Mouse,Mobiliário,São Paulo,PR,1,2731,cancelado,2731
+PED-0091,2024-06-29,Cliente 014,Impressora,Mobiliário,Fortaleza,SP,3,739,pendente,2217
+PED-0137,2024-09-29,Cliente 019,Cadeira,Monitores,Curitiba,SP,4,1932,concluido,7728
+PED-0052,2024-04-12,Cliente 006,Monitor,Mobiliário,Curitiba,CE,2,1264,concluido,2528
+PED-0128,2024-09-11,Cliente 023,Mouse,Periféricos,São Paulo,RJ,4,300,concluido,1200
+PED-0163,2024-11-20,Cliente 013,Teclado,Monitores,Fortaleza,CE,5,1085,concluido,5425
+PED-0042,2024-03-23,Cliente 023,Notebook,Periféricos,Fortaleza,PR,5,2343,concluido,11715
+PED-0119,2024-08-24,Cliente 008,Cadeira,Monitores,Rio de Janeiro,RJ,4,1374,concluido,5496
+PED-0114,2024-08-14,Cliente 014,Teclado,Impressoras,Curitiba,CE,2,2567,concluido,5134
+PED-0027,2024-02-22,Cliente 013,Impressora,Mobiliário,Rio de Janeiro,PR,1,366,concluido,366
+PED-0140,2024-10-05,Cliente 014,Cadeira,Periféricos,Fortaleza,MG,3,1253,concluido,3759
+PED-0101,2024-07-19,Cliente 025,Monitor,Periféricos,Belo Horizonte,SP,3,2290,concluido,6870
+PED-0112,2024-08-10,Cliente 024,Impressora,Impressoras,Belo Horizonte,SP,2,1076,concluido,2152
+PED-0003,2024-01-05,Cliente 020,Monitor,Periféricos,Curitiba,MG,3,2955,concluido,8865
+PED-0078,2024-06-03,Cliente 007,Impressora,Periféricos,São Paulo,PR,1,2332,cancelado,2332
+PED-0047,2024-04-02,Cliente 014,Impressora,Periféricos,Belo Horizonte,SP,2,2586,concluido,5172
+PED-0188,2025-01-09,Cliente 012,Impressora,Periféricos,Curitiba,RJ,3,1009,cancelado,3027
+PED-0192,2025-01-17,Cliente 019,Teclado,Mobiliário,Belo Horizonte,MG,2,1612,pendente,3224
+PED-0086,2024-06-19,Cliente 022,Cadeira,Periféricos,Fortaleza,PR,5,194,cancelado,970
+PED-0162,2024-11-18,Cliente 020,Cadeira,Periféricos,Belo Horizonte,MG,3,248,concluido,744
+PED-0037,2024-03-13,Cliente 026,Notebook,Computadores,Rio de Janeiro,CE,5,63,concluido,315
+PED-0191,2025-01-15,Cliente 021,Impressora,Impressoras,São Paulo,RJ,3,952,pendente,2856
+PED-0062,2024-05-02,Cliente 023,Teclado,Periféricos,Curitiba,CE,4,2777,concluido,11108
+PED-0023,2024-02-14,Cliente 006,Impressora,Impressoras,São Paulo,SP,5,2886,concluido,14430
+PED-0142,2024-10-09,Cliente 007,Teclado,Periféricos,Curitiba,MG,2,453,concluido,906
+PED-0102,2024-07-21,Cliente 006,Impressora,Computadores,Curitiba,SP,3,1233,concluido,3699
+PED-0034,2024-03-07,Cliente 017,Impressora,Periféricos,Rio de Janeiro,SP,2,2262,concluido,4524
+PED-0012,2024-01-23,Cliente 030,Impressora,Periféricos,Belo Horizonte,CE,4,2356,concluido,9424
+PED-0195,2025-01-23,Cliente 029,Impressora,Periféricos,Belo Horizonte,MG,3,686,pendente,2058
+PED-0160,2024-11-14,Cliente 024,Impressora,Mobiliário,Curitiba,MG,2,1127,concluido,2254
+PED-0007,2024-01-13,Cliente 003,Impressora,Monitores,Rio de Janeiro,MG,5,1569,concluido,7845
+PED-0028,2024-02-24,Cliente 025,Notebook,Impressoras,Rio de Janeiro,CE,2,2954,concluido,5908
+PED-0121,2024-08-28,Cliente 014,Teclado,Monitores,São Paulo,CE,1,387,concluido,387
+PED-0005,2024-01-09,Cliente 013,Monitor,Monitores,Fortaleza,PR,1,1970,concluido,1970
+PED-0033,2024-03-05,Cliente 003,Mouse,Impressoras,Belo Horizonte,MG,4,2912,concluido,11648
+PED-0143,2024-10-11,Cliente 009,Notebook,Periféricos,Curitiba,CE,5,402,concluido,2010
+PED-0146,2024-10-17,Cliente 026,Teclado,Periféricos,Rio de Janeiro,SP,3,2992,concluido,8976
+PED-0110,2024-08-06,Cliente 022,Mouse,Periféricos,Belo Horizonte,SP,1,2565,concluido,2565
+PED-0145,2024-10-15,Cliente 030,Cadeira,Impressoras,Curitiba,SP,2,600,concluido,1200
+PED-0011,2024-01-21,Cliente 016,Teclado,Periféricos,Fortaleza,SP,2,1888,concluido,3776
+PED-0063,2024-05-04,Cliente 011,Teclado,Impressoras,São Paulo,SP,1,1361,concluido,1361
+PED-0113,2024-08-12,Cliente 017,Mouse,Mobiliário,Curitiba,RJ,1,2349,concluido,2349
+PED-0147,2024-10-19,Cliente 002,Cadeira,Monitores,Belo Horizonte,CE,3,2574,concluido,7722
+PED-0167,2024-11-28,Cliente 010,Monitor,Periféricos,Curitiba,PR,1,940,concluido,940
+PED-0001,2024-01-01,Cliente 003,Monitor,Mobiliário,Curitiba,SP,5,2643,concluido,13215
+PED-0199,2025-01-31,Cliente 011,Teclado,Computadores,Rio de Janeiro,CE,5,123,pendente,615
+PED-0154,2024-11-02,Cliente 009,Monitor,Periféricos,Fortaleza,MG,5,2750,concluido,13750
+PED-0071,2024-05-20,Cliente 024,Teclado,Impressoras,Fortaleza,MG,4,1138,concluido,4552
+PED-0124,2024-09-03,Cliente 015,Cadeira,Impressoras,São Paulo,SP,2,2665,concluido,5330
+PED-0065,2024-05-08,Cliente 013,Cadeira,Periféricos,Belo Horizonte,CE,4,753,concluido,3012
+PED-0045,2024-03-29,Cliente 003,Notebook,Computadores,Curitiba,SP,4,2631,concluido,10524
+PED-0164,2024-11-22,Cliente 013,Cadeira,Periféricos,Fortaleza,RJ,3,645,concluido,1935
+PED-0029,2024-02-26,Cliente 017,Notebook,Periféricos,Belo Horizonte,CE,3,504,concluido,1512
+PED-0041,2024-03-21,Cliente 005,Mouse,Mobiliário,Curitiba,RJ,4,1549,concluido,6196
+PED-0109,2024-08-04,Cliente 015,Teclado,Periféricos,Belo Horizonte,RJ,5,1274,concluido,6370
+PED-0156,2024-11-06,Cliente 020,Cadeira,Computadores,Belo Horizonte,PR,3,1515,concluido,4545
+PED-0157,2024-11-08,Cliente 004,Mouse,Impressoras,Curitiba,MG,1,1064,concluido,1064
+PED-0026,2024-02-20,Cliente 020,Teclado,Periféricos,Rio de Janeiro,SP,1,2910,concluido,2910
+PED-0024,2024-02-16,Cliente 028,Teclado,Computadores,Belo Horizonte,PR,5,1979,concluido,9895
+PED-0185,2025-01-03,Cliente 015,Mouse,Monitores,Belo Horizonte,MG,3,1189,cancelado,3567
+PED-0148,2024-10-21,Cliente 008,Cadeira,Computadores,Rio de Janeiro,SP,4,2117,concluido,8468
+PED-0082,2024-06-11,Cliente 014,Monitor,Impressoras,São Paulo,CE,5,2231,cancelado,11155
+PED-0040,2024-03-19,Cliente 019,Notebook,Monitores,Fortaleza,CE,5,170,concluido,850
+PED-0169,2024-12-02,Cliente 011,Mouse,Computadores,São Paulo,CE,5,2891,concluido,14455
+PED-0048,2024-04-04,Cliente 027,Monitor,Mobiliário,Belo Horizonte,SP,4,1421,concluido,5684
+PED-0095,2024-07-07,Cliente 027,Notebook,Periféricos,São Paulo,PR,2,2857,pendente,5714
+PED-0155,2024-11-04,Cliente 014,Cadeira,Mobiliário,Belo Horizonte,PR,2,697,concluido,1394
+PED-0044,2024-03-27,Cliente 011,Notebook,Monitores,Belo Horizonte,SP,2,1494,concluido,2988
+PED-0139,2024-10-03,Cliente 011,Teclado,Computadores,Curitiba,MG,4,2337,concluido,9348
+PED-0004,2024-01-07,Cliente 014,Impressora,Mobiliário,São Paulo,CE,5,2296,concluido,11480
+PED-0106,2024-07-29,Cliente 024,Mouse,Monitores,Belo Horizonte,PR,1,2031,concluido,2031
+PED-0054,2024-04-16,Cliente 015,Teclado,Periféricos,Fortaleza,RJ,5,2391,concluido,11955
+PED-0134,2024-09-23,Cliente 017,Impressora,Periféricos,Curitiba,PR,4,2431,concluido,9724
+PED-0181,2024-12-26,Cliente 029,Mouse,Periféricos,Fortaleza,MG,4,2942,cancelado,11768
+PED-0179,2024-12-22,Cliente 028,Monitor,Mobiliário,Rio de Janeiro,RJ,2,1534,cancelado,3068
+PED-0186,2025-01-05,Cliente 014,Mouse,Mobiliário,Belo Horizonte,PR,2,743,cancelado,1486
+PED-0050,2024-04-08,Cliente 024,Mouse,Periféricos,Fortaleza,PR,1,2934,concluido,2934
+PED-0081,2024-06-09,Cliente 029,Teclado,Periféricos,Curitiba,SP,5,2232,cancelado,11160
+PED-0035,2024-03-09,Cliente 027,Monitor,Monitores,São Paulo,CE,1,1929,concluido,1929
+PED-0008,2024-01-15,Cliente 021,Cadeira,Periféricos,Belo Horizonte,SP,3,2176,concluido,6528
+PED-0111,2024-08-08,Cliente 009,Notebook,Mobiliário,Curitiba,PR,4,1596,concluido,6384
+PED-0092,2024-07-01,Cliente 025,Teclado,Mobiliário,Curitiba,PR,3,2581,pendente,7743
+PED-0084,2024-06-15,Cliente 025,Monitor,Impressoras,Fortaleza,SP,3,2412,cancelado,7236
+PED-0177,2024-12-18,Cliente 022,Impressora,Mobiliário,Belo Horizonte,SP,2,2888,cancelado,5776
+PED-0182,2024-12-28,Cliente 005,Cadeira,Mobiliário,Curitiba,PR,5,889,cancelado,4445
+PED-0090,2024-06-27,Cliente 025,Monitor,Computadores,Curitiba,RJ,1,1884,cancelado,1884
+PED-0009,2024-01-17,Cliente 007,Teclado,Mobiliário,Fortaleza,RJ,4,889,concluido,3556
+PED-0014,2024-01-27,Cliente 023,Monitor,Periféricos,Rio de Janeiro,RJ,2,2607,concluido,5214
+PED-0060,2024-04-28,Cliente 021,Notebook,Periféricos,Rio de Janeiro,CE,2,2416,concluido,4832
+PED-0172,2024-12-08,Cliente 003,Notebook,Monitores,Fortaleza,MG,4,1062,concluido,4248
+PED-0132,2024-09-19,Cliente 017,Monitor,Periféricos,Belo Horizonte,PR,4,2167,concluido,8668
+PED-0018,2024-02-04,Cliente 004,Mouse,Periféricos,Rio de Janeiro,SP,3,2210,concluido,6630
+PED-0073,2024-05-24,Cliente 014,Mouse,Monitores,Curitiba,SP,4,2798,concluido,11192
+PED-0176,2024-12-16,Cliente 014,Mouse,Monitores,Fortaleza,RJ,2,2879,cancelado,5758
+PED-0135,2024-09-25,Cliente 024,Monitor,Computadores,Rio de Janeiro,MG,4,1624,concluido,6496
+PED-0168,2024-11-30,Cliente 006,Teclado,Periféricos,Belo Horizonte,RJ,2,1387,concluido,2774
+PED-0184,2025-01-01,Cliente 021,Teclado,Periféricos,São Paulo,PR,3,2696,cancelado,8088
+PED-0064,2024-05-06,Cliente 030,Cadeira,Monitores,Rio de Janeiro,PR,4,2476,concluido,9904
+PED-0055,2024-04-18,Cliente 015,Notebook,Computadores,Belo Horizonte,RJ,1,1967,concluido,1967
+PED-0108,2024-08-02,Cliente 020,Notebook,Periféricos,Belo Horizonte,SP,5,751,concluido,3755
+PED-0051,2024-04-10,Cliente 023,Teclado,Mobiliário,Belo Horizonte,CE,3,763,concluido,2289
+PED-0197,2025-01-27,Cliente 011,Mouse,Computadores,Fortaleza,MG,4,1878,pendente,7512
+PED-0059,2024-04-26,Cliente 023,Teclado,Mobiliário,São Paulo,PR,3,1644,concluido,4932
+PED-0049,2024-04-06,Cliente 021,Impressora,Computadores,Fortaleza,CE,4,1009,concluido,4036
+PED-0089,2024-06-25,Cliente 024,Notebook,Impressoras,Belo Horizonte,SP,4,350,cancelado,1400
+PED-0022,2024-02-12,Cliente 012,Monitor,Impressoras,Belo Horizonte,PR,1,1681,concluido,1681
+PED-0058,2024-04-24,Cliente 005,Mouse,Computadores,Curitiba,SP,4,1688,concluido,6752
+PED-0161,2024-11-16,Cliente 030,Cadeira,Computadores,São Paulo,SP,3,293,concluido,879
+PED-0193,2025-01-19,Cliente 019,Monitor,Periféricos,Curitiba,SP,1,2952,pendente,2952
+PED-0130,2024-09-15,Cliente 020,Notebook,Mobiliário,Curitiba,MG,4,1058,concluido,4232
+PED-0038,2024-03-15,Cliente 025,Monitor,Mobiliário,Rio de Janeiro,SP,1,415,concluido,415
+PED-0158,2024-11-10,Cliente 017,Cadeira,Mobiliário,Rio de Janeiro,PR,5,446,concluido,2230
+PED-0194,2025-01-21,Cliente 011,Notebook,Mobiliário,Fortaleza,MG,4,2239,pendente,8956
+PED-0002,2024-01-03,Cliente 024,Cadeira,Impressoras,Curitiba,RJ,4,1458,concluido,5832
+PED-0053,2024-04-14,Cliente 011,Teclado,Monitores,Rio de Janeiro,CE,3,268,concluido,804
+PED-0150,2024-10-25,Cliente 002,Mouse,Impressoras,São Paulo,RJ,5,1805,concluido,9025
+PED-0131,2024-09-17,Cliente 017,Notebook,Computadores,Curitiba,MG,3,1377,concluido,4131
+PED-0152,2024-10-29,Cliente 009,Mouse,Monitores,São Paulo,RJ,3,1207,concluido,3621
+PED-0104,2024-07-25,Cliente 001,Cadeira,Mobiliário,São Paulo,CE,1,2692,concluido,2692
+PED-0100,2024-07-17,Cliente 005,Mouse,Monitores,São Paulo,PR,3,137,pendente,411
+PED-0117,2024-08-20,Cliente 002,Impressora,Mobiliário,Belo Horizonte,MG,5,2143,concluido,10715
+PED-0088,2024-06-23,Cliente 010,Notebook,Computadores,Belo Horizonte,SP,5,741,cancelado,3705
+PED-0075,2024-05-28,Cliente 021,Monitor,Computadores,Curitiba,PR,3,2299,concluido,6897
+PED-0122,2024-08-30,Cliente 021,Mouse,Periféricos,Fortaleza,MG,1,860,concluido,860
+PED-0200,2025-02-02,Cliente 029,Teclado,Computadores,Belo Horizonte,MG,4,933,pendente,3732
+PED-0021,2024-02-10,Cliente 016,Mouse,Mobiliário,Belo Horizonte,SP,1,1966,concluido,1966
+PED-0189,2025-01-11,Cliente 008,Cadeira,Mobiliário,Belo Horizonte,RJ,3,2678,cancelado,8034
+PED-0072,2024-05-22,Cliente 006,Mouse,Impressoras,Curitiba,RJ,2,372,concluido,744
+PED-0107,2024-07-31,Cliente 024,Teclado,Computadores,São Paulo,MG,2,801,concluido,1602
+PED-0015,2024-01-29,Cliente 022,Impressora,Periféricos,Curitiba,PR,3,268,concluido,804
+PED-0093,2024-07-03,Cliente 026,Cadeira,Impressoras,Fortaleza,MG,5,1359,pendente,6795
+PED-0180,2024-12-24,Cliente 016,Teclado,Periféricos,Fortaleza,MG,1,1645,cancelado,1645
+PED-0103,2024-07-23,Cliente 025,Mouse,Mobiliário,São Paulo,RJ,5,2114,concluido,10570
+PED-0096,2024-07-09,Cliente 009,Notebook,Monitores,Rio de Janeiro,PR,1,1568,pendente,1568
+PED-0016,2024-01-31,Cliente 024,Teclado,Impressoras,Curitiba,CE,5,386,concluido,1930
+PED-0031,2024-03-01,Cliente 014,Monitor,Periféricos,Curitiba,RJ,3,2473,concluido,7419
+PED-0159,2024-11-12,Cliente 016,Mouse,Impressoras,São Paulo,CE,2,353,concluido,706
+PED-0129,2024-09-13,Cliente 018,Mouse,Mobiliário,Belo Horizonte,MG,3,2041,concluido,6123
