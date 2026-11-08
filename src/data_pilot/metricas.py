@@ -4,7 +4,7 @@ Todas as funções recebem um DataFrame pandas limpo (colunas: data, cliente,
 categoria, status, valor_unitario, quantidade, receita, cidade, ...),
 filtram para pedidos concluídos (status == "concluido", com tolerância a
 case/acentos na leitura do status) e devolvem números Python puros
-(float/int) ou DataFrames resumidos — nunca chamam rede nem LLM.
+(float/int) ou DataFrames resumidos: nunca chamam rede nem LLM.
 
 Fases 1+2 (or1): 8 funções públicas, mapeadas 1:1 às ferramentas de
 tool-calling em `ferramentas.py`.
@@ -184,7 +184,7 @@ def filtrar_periodo(
     """Filtra por período (inclusive) e, opcionalmente, por categoria.
 
     Útil para responder "quanto vendemos entre X e Y" sem o modelo
-    precisar calcular datas — ele só passa as strings.
+    precisar calcular datas: ele só passa as strings.
 
     Args:
         df: DataFrame limpo com coluna `data` (datetime).
@@ -193,7 +193,7 @@ def filtrar_periodo(
         categoria: filtro opcional de categoria.
 
     Returns:
-        Subconjunto filtrado (todas as linhas, não só concluídos — o
+        Subconjunto filtrado (todas as linhas, não só concluídos: o
         chamador decide o que resumir).
     """
     base = df.copy()

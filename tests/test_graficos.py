@@ -1,4 +1,4 @@
-"""Testes dos 4 gráficos Plotly puros (graficos.py) — sem Streamlit."""
+"""Testes dos 4 gráficos Plotly puros (graficos.py): sem Streamlit."""
 
 from __future__ import annotations
 

@@ -1,7 +1,7 @@
 """Agente conversacional do Data Pilot via OpenRouter (Fase 4).
 
 Regra central: o Python calcula, o LLM só explica. O modelo nunca recebe a
-planilha crua — ele escolhe uma ferramenta (tool-calling), o código executa
+planilha crua: ele escolhe uma ferramenta (tool-calling), o código executa
 localmente via `ferramentas.executar_ferramenta` e o número volta ao modelo,
 que só formata a frase final. Sem SDK de agentes (LangChain etc.): apenas
 `requests` direto no endpoint OpenAI-compatible do OpenRouter.
@@ -114,7 +114,7 @@ def chamar_openrouter(
         raise RuntimeError(f"Falha de rede ao chamar o OpenRouter: {exc}") from exc
 
     if resp.status_code < 200 or resp.status_code >= 300:
-        # Corpo pode conter {"error": {"message": ...}} — expõe para debug no app.
+        # Corpo pode conter {"error": {"message": ...}}: expõe para debug no app.
         detalhe = resp.text[:1000]
         raise RuntimeError(f"OpenRouter HTTP {resp.status_code}: {detalhe}")
 
@@ -166,7 +166,7 @@ def conversar(
         modelo: override do modelo (opcional; default vem do ambiente).
 
     Returns:
-        Resposta final em texto (sempre str, mesmo em erro de API —
+        Resposta final em texto (sempre str, mesmo em erro de API : 
         erros são devolvidos como texto explicativo, sem exceção).
     """
     api_key_cfg, modelo_env, base_url = _get_config()

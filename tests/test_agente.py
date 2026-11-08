@@ -1,4 +1,4 @@
-"""Testes do loop tool-calling do agente (agente.py) — mockados, sem rede."""
+"""Testes do loop tool-calling do agente (agente.py): mockados, sem rede."""
 
 from __future__ import annotations
 

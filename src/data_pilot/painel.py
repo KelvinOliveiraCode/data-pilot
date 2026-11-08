@@ -69,7 +69,7 @@ def _taxa_cancelamento(df: pd.DataFrame) -> float:
 
 def render_painel(df: pd.DataFrame) -> None:
     """Renderiza o painel de vendas (KPIs, filtros e gráficos)."""
-    st.title("📊 Data Pilot — Painel de Vendas")
+    st.title("📊 Data Pilot: Painel de Vendas")
 
     # Sidebar: filtros
     with st.sidebar:
@@ -126,7 +126,7 @@ def render_painel(df: pd.DataFrame) -> None:
     if status_sel and "status" in df_f.columns:
         df_f = df_f[df_f["status"].isin(status_sel)]
 
-    # KPIs (4 cards) — sobre o df filtrado
+    # KPIs (4 cards): sobre o df filtrado
     col1, col2, col3, col4 = st.columns(4)
     col1.metric("Receita total", _fmt_brl(receita_total(df_f)))
     col2.metric("Pedidos concluídos", pedidos_concluidos(df_f))
@@ -144,7 +144,7 @@ def render_painel(df: pd.DataFrame) -> None:
     st.plotly_chart(grafico_receita_mensal(df_f), use_container_width=True)
 
     # Distribuição de status: sobre base SEM filtro de status (para não
-    # esconder as outras fatias) — a função em graficos.py já usa o df
+    # esconder as outras fatias): a função em graficos.py já usa o df
     # completo que recebe aqui (com período/categoria aplicados).
     df_status_base = df.copy()
     if periodo:

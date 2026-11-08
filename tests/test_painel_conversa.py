@@ -113,7 +113,7 @@ def test_render_conversa_sem_chave_mostra_info(
     st_mock: MagicMock, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
-    # conversa.py lê dotenv em import — força _tem_api_key via env vazio
+    # conversa.py lê dotenv em import: força _tem_api_key via env vazio
     import importlib
 
     import data_pilot.conversa as conversa
@@ -156,7 +156,7 @@ def test_app_main_cria_tabs(st_mock: MagicMock, monkeypatch: pytest.MonkeyPatch)
     import sys
 
     app.st = sys.modules["streamlit"]
-    # app.py also did `from .painel import render_painel` at import time — the real
+    # app.py also did `from .painel import render_painel` at import time: the real
     # render_painel's `st` is the REAL streamlit module (cached), not our mock.
     # The painel-level tests above already prove render_painel; here we only verify
     # the shell that app.main() drives: set_page_config + tabs + both tabs rendered.

@@ -2,7 +2,7 @@
 
 Fonte original: ``data/sales.csv`` (não inventar colunas). Se o arquivo não
 existir, gera um sintético determinístico (seed 42) com as colunas esperadas.
-Python calcula, IA só explica — nenhum LLM aqui.
+Python calcula, IA só explica: nenhum LLM aqui.
 """
 
 from __future__ import annotations
@@ -66,7 +66,7 @@ def _detectar_separador(path: Path) -> str:
 
 def _gerar_sintetico(path: Path) -> pd.DataFrame:
     """Gera CSV sintético determinístico (seed 42) com as colunas esperadas."""
-    import numpy as np  # import tardio — só para o fallback
+    import numpy as np  # import tardio: só para o fallback
 
     path.parent.mkdir(parents=True, exist_ok=True)
 

@@ -8,15 +8,15 @@
 
 [![Python 3](https://img.shields.io/badge/Python-3.x-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/) [![pandas](https://img.shields.io/badge/pandas-150458?style=flat-square&logo=pandas)](https://pandas.pydata.org/) [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=flat-square&logo=streamlit&logoColor=white)](https://streamlit.io/) [![Plotly](https://img.shields.io/badge/Plotly-3F4F75?style=flat-square&logo=plotly&logoColor=white)](https://plotly.com/) [![OpenRouter](https://img.shields.io/badge/OpenRouter-8B5CF6?style=flat-square)](https://openrouter.ai/) [![pytest](https://img.shields.io/badge/pytest-0A9EDC?style=flat-square&logo=pytest)](https://docs.pytest.org/) [![MIT License](https://img.shields.io/badge/License-MIT-f4c430?style=flat-square)](LICENSE)
 
-### DIO final project — Intelligent Data Analysis with AI Agents
+### DIO final project: Intelligent Data Analysis with AI Agents
 
-> **Full description for DIO:** interactive sales dashboard built as the **final project of the DIO Data Pipeline / Agentic Coding challenge** — two views (business dashboard + natural-language chat), 8 deterministic Python metric functions (total revenue, completed orders, average ticket, unique customers, cancellation rate, average revenue per customer, top-5 cities by revenue and period filtering), 8 tool-calling functions exposed to the model, a Streamlit dashboard with 4 KPIs and 4 Plotly charts, chat via OpenRouter with the free model `nvidia/nemotron-3.5-lightning:free`, a `.env` file ignored by Git, 70 automated tests and real application screenshots — demonstrating in practice the rule “Python computes, the AI only explains”.
+> **Full description for DIO:** interactive sales dashboard built as the **final project of the DIO Data Pipeline / Agentic Coding challenge**: two views (business dashboard + natural-language chat), 8 deterministic Python metric functions (total revenue, completed orders, average ticket, unique customers, cancellation rate, average revenue per customer, top-5 cities by revenue and period filtering), 8 tool-calling functions exposed to the model, a Streamlit dashboard with 4 KPIs and 4 Plotly charts, chat via OpenRouter with the free model `nvidia/nemotron-3.5-lightning:free`, a `.env` file ignored by Git, 70 automated tests and real application screenshots: demonstrating in practice the rule “Python computes, the AI only explains”.
 
 ---
 
 ## What it is
 
-**Data Pilot**: a Python sales dashboard that also *chats* with you in natural language. You ask a question and an AI agent answers using **only numbers computed by your own code** (pandas) — the AI explains; it never invents.
+**Data Pilot**: a Python sales dashboard that also *chats* with you in natural language. You ask a question and an AI agent answers using **only numbers computed by your own code** (pandas): the AI explains; it never invents.
 
 Layered architecture, no agent framework:
 1. **Data** (`pandas`): cleans `sales.csv` and produces `sales_clean.csv`;
@@ -54,10 +54,10 @@ data-pilot
 
 Core rule: **Python computes; the AI only explains.**
 
-- The model never sees the raw spreadsheet — only numeric results produced by a function.
+- The model never sees the raw spreadsheet: only numeric results produced by a function.
 - Each metric function (`calcular_receita_total`, `calcular_ticket_medio`, …) is registered as a **tool** (name, description, parameters).
 - The LLM picks which tool to call; the code executes it locally and returns the number; the model only formats the final sentence.
-- The chat log shows **which function ran, with which parameters and which result** — proof the numbers are real.
+- The chat log shows **which function ran, with which parameters and which result**: proof the numbers are real.
 
 ---
 
@@ -66,7 +66,7 @@ Core rule: **Python computes; the AI only explains.**
 | Capability | Description |
 |------------|-------------|
 | Data cleaning | Dates parsed, statuses normalized, duplicates removed, `receita` column; writes `sales_clean.csv` with `;` separator and `,` decimal |
-| Business metrics | Total revenue, orders, average ticket, unique customers, cancellation rate — always over completed orders |
+| Business metrics | Total revenue, orders, average ticket, unique customers, cancellation rate: always over completed orders |
 | Interactive dashboard | Cards (KPIs), category filter, monthly revenue chart (Plotly) |
 | Chat with tools | PT questions → model calls the right function (tool calling) → answer with code-computed numbers |
 | Free model | OpenRouter (`nvidia/nemotron-3.5-lightning:free`) with tool-calling support, key in `.env` |
@@ -138,27 +138,27 @@ The model calls **snake_case names** (defined in `src/data_pilot/ferramentas.py`
 | `clientes_unicos` | `calcular_clientes_unicos` | Distinct customers with a completed order | `categoria` (optional) |
 | `taxa_cancelamento` | `calcular_taxa_cancelamento` | Cancelled ÷ total (0–100 %) | `categoria` (optional) |
 | `receita_media_por_cliente` | `calcular_receita_media_por_cliente` | Revenue ÷ unique customers | `categoria` (optional) |
-| `top5_cidades_receita` | `calcular_top5_cidades_receita` | Top-5 cities by revenue | — |
+| `top5_cidades_receita` | `calcular_top5_cidades_receita` | Top-5 cities by revenue | nenhum |
 | `filtrar_periodo` | `filtrar_periodo` | Records filtered by period | `data_inicio`/`data_fim`/`categoria` (optional) |
 
 ---
 
 ## Chosen improvement
 
-> **New metric + new chart + tool with a date range**: average revenue per customer, top-5 cities by revenue (chart of the 5 best-selling cities), and a tool accepting a period/filter by period (`data_inicio`/`data_fim`) — all computed in code and answered in chat.
+> **New metric + new chart + tool with a date range**: average revenue per customer, top-5 cities by revenue (chart of the 5 best-selling cities), and a tool accepting a period/filter by period (`data_inicio`/`data_fim`): all computed in code and answered in chat.
 
 ---
 
 ## DIO final project
 
 Project developed as the **final project of the DIO Data Pipeline / Agentic Coding track**
-([Digital Innovation One](https://www.dio.me/)) — delivered:
+([Digital Innovation One](https://www.dio.me/)): delivered:
 
 - **Business dashboard** (Streamlit + Plotly): KPIs for total revenue, completed orders, average ticket and unique customers, with category, period and status filters, plus charts for revenue by category, top-5 cities by revenue, monthly revenue and order distribution by status.
 - **Natural-language chat** (OpenRouter, free model `nvidia/nemotron-3.5-lightning:free`): the user asks in Portuguese and the agent answers using only numbers produced by Python functions (`receita_total`, `pedidos_concluidos`, `ticket_medio`, `clientes_unicos`, `taxa_cancelamento`, `receita_media_por_cliente`, `top5_cidades_receita`, `filtrar_periodo`).
-- **Architecture without an agent framework**: `pandas` cleans and enriches the CSV (`;` or `,`), 8 deterministic functions answer each business question, the dashboard and chat share the same functions — identical numbers in both views.
+- **Architecture without an agent framework**: `pandas` cleans and enriches the CSV (`;` or `,`), 8 deterministic functions answer each business question, the dashboard and chat share the same functions: identical numbers in both views.
 - **Quality**: 70 automated tests (data, metrics, tools, charts, dashboard/chat and integration), clean `ruff`, `.env` ignored by Git (only `.env.example` exists), `data/sales.csv` with deterministic synthetic fallback and real screenshots in `docs/prints/`.
-- **Core rule demonstrated**: Python computes, the AI only explains — the model picks which tool to run, but never invents numbers.
+- **Core rule demonstrated**: Python computes, the AI only explains: the model picks which tool to run, but never invents numbers.
 
 ---
 
@@ -195,11 +195,11 @@ This is a **study/portfolio project**. Harden it (secrets, rate-limit, observabi
 
 ## Documentation
 
-- **Source Code** — Browse the `src/` directory for implementation details
-- **API Reference** — Inline docstrings + type hints
-- **Architecture Diagram** — See [architecture.mermaid](docs/architecture.mermaid)
-- **Changelog** — [CHANGELOG.md](CHANGELOG.md) (if present)
-- **Contributing** — [CONTRIBUTING.md](CONTRIBUTING.md) (if present)
+- **Source Code**: Browse the `src/` directory for implementation details
+- **API Reference**: Inline docstrings + type hints
+- **Architecture Diagram**: See [architecture.mermaid](docs/architecture.mermaid)
+- **Changelog**: [CHANGELOG.md](CHANGELOG.md) (if present)
+- **Contributing**: [CONTRIBUTING.md](CONTRIBUTING.md) (if present)
 
 ## License
 

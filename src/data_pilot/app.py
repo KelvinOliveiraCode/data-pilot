@@ -43,7 +43,7 @@ def _carregar() -> object:
     _ = os  # (mantido para compatibilidade futura com paths relativos)
     if not path.exists():
         st.warning(
-            "Arquivo `data/sales.csv` não encontrado — usando dados sintéticos "
+            "Arquivo `data/sales.csv` não encontrado: usando dados sintéticos "
             "determinísticos (fallback). Coloque um CSV em `data/sales.csv` "
             "para usar dados reais."
         )

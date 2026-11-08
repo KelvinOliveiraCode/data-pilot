@@ -6,7 +6,7 @@ com nome, descrição em PT-BR e JSON Schema dos parâmetros.
 
 O LLM escolhe nome + argumentos; `executar_ferramenta` despacha para a
 função Python e devolve um dict JSON-serializável (DataFrames viram lista
-de dicts). Sem SDK de agentes — apenas dicts + `requests` (em `agente.py`).
+de dicts). Sem SDK de agentes: apenas dicts + `requests` (em `agente.py`).
 """
 
 from __future__ import annotations
