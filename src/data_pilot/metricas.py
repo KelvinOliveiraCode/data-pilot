@@ -197,10 +197,13 @@ def filtrar_periodo(
         chamador decide o que resumir).
     """
     base = df.copy()
+    col_data = "data" if "data" in base.columns else "data_pedido"
+    if col_data not in base.columns:
+        return base.reset_index(drop=True)
     if data_inicio is not None and str(data_inicio).strip() != "":
-        base = base[base["data"] >= _parse_data(data_inicio)]
+        base = base[base[col_data] >= _parse_data(data_inicio)]
     if data_fim is not None and str(data_fim).strip() != "":
         fim = _parse_data(data_fim)
-        base = base[base["data"] <= fim]
+        base = base[base[col_data] <= fim]
     base = _filtrar_categoria(base, categoria)
     return base.reset_index(drop=True)
