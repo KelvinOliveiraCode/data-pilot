@@ -133,11 +133,23 @@ def chamar_openrouter(
     return {"content": content, "tool_calls": tool_calls}
 
 
+def _resolver_chave(api_key_override: str | None = None) -> str:
+    """Resolve a chave: override do session_state (input da UI) > env.
+
+    Nunca nunca retorna valores de outra fonte nem loga a chave.
+    Valores vazios/None significam "sem chave".
+    """
+    if api_key_override is not None and str(api_key_override).strip():
+        return str(api_key_override).strip()
+    return os.getenv("OPENROUTER_API_KEY", "").strip()
+
+
 def conversar(
     df: pd.DataFrame,
     pergunta: str,
     historico: list[dict[str, Any]] | None = None,
     modelo: str | None = None,
+    api_key: str | None = None,
 ) -> str:
     """Conversa com o Data Pilot: loop tool-calling até a resposta final.
 
@@ -157,13 +169,17 @@ def conversar(
         Resposta final em texto (sempre str, mesmo em erro de API —
         erros são devolvidos como texto explicativo, sem exceção).
     """
-    api_key, modelo_env, base_url = _get_config()
+    api_key_cfg, modelo_env, base_url = _get_config()
+    api_key = _resolver_chave(api_key)
+    if not api_key:
+        api_key = api_key_cfg  # fallback duplo (compat: _get_config já lia o env)
     modelo_usado = modelo or modelo_env
 
     if not api_key:
         return (
             "⚠️ Para conversar, configure `OPENROUTER_API_KEY` no arquivo `.env` "
-            "(copie de `.env.example`). O Painel funciona sem chave; o Chat precisa dela."
+            "(copie de `.env.example`) ou informe sua chave no campo abaixo. "
+            "O Painel funciona sem chave; o Chat precisa dela."
         )
 
     mensagens: list[dict[str, Any]] = [{"role": "system", "content": INSTRUCAO_SISTEMA}]

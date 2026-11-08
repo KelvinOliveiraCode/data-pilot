@@ -28,8 +28,27 @@ from data_pilot.agente import conversar  # noqa: E402  # import após load_doten
 
 
 def _tem_api_key() -> bool:
-    """True se OPENROUTER_API_KEY está definida (ambiente ou .env)."""
+    """True se já há chave: override da UI (session_state) OU env/.env."""
+    ui = (st.session_state.get("api_key_ui", "") or "").strip()
+    if ui:
+        return True
     return bool(os.getenv("OPENROUTER_API_KEY", "").strip())
+
+
+def _chave_atual() -> str:
+    """Chave efetiva para a chamada: a digitada na UI tem precedência.
+
+    Nunca loga nem persiste: a chave vive só em `st.session_state` durante
+    a sessão do Streamlit e desaparece ao fechar. A env serve de fallback.
+    """
+    ui = (st.session_state.get("api_key_ui", "") or "").strip()
+    return ui or os.getenv("OPENROUTER_API_KEY", "").strip()
+
+
+def _inicializar_estado_chave() -> None:
+    """Garante `st.session_state.api_key_ui` (string vazia = não informada)."""
+    if "api_key_ui" not in st.session_state:
+        st.session_state.api_key_ui = ""
 
 
 def _inicializar_historico() -> None:
@@ -53,11 +72,39 @@ def render_conversa(df: pd.DataFrame) -> None:
     )
 
     _inicializar_historico()
+    _inicializar_estado_chave()
+
+    with st.expander("🔑 Chave do OpenRouter (opcional)", expanded=not _tem_api_key()):
+        st.caption(
+            "Cole sua chave para usar nesta sessão. **Não exibimos, não salvamos "
+            "em disco e não registramos em log;** a chave vive só na memória desta "
+            "sessão e some ao fechar o navegador. Também aceitamos `OPENROUTER_API_KEY` "
+            "no arquivo `.env` (copie de `.env.example`)."
+        )
+        nova_chave = st.text_input(
+            "Sua chave OpenRouter",
+            value="",
+            type="password",
+            placeholder="chave no formato sk-... (opcional)",
+            key="input_chave",
+            help="Deixe vazio para usar a chave do ambiente/.env. Digitar aqui "
+            "sobrescreve só nesta sessão.",
+        )
+        c1, c2 = st.columns(2)
+        with c1:
+            if st.button("💾 Usar esta chave (só nesta sessão)"):
+                st.session_state.api_key_ui = (nova_chave or "").strip()
+                st.success("Chave registrada nesta sessão.")
+        with c2:
+            if st.button("🧹 Esquecer chave"):
+                st.session_state.api_key_ui = ""
+                st.info("Chave removida da sessão. Se houver `.env`, ele volta a valer.")
 
     if not _tem_api_key():
         st.info(
             "⚙️ **Chat não configurado:** defina `OPENROUTER_API_KEY` no arquivo `.env` "
-            "(copie de `.env.example`). O Painel continua funcionando sem chave."
+            "(copie de `.env.example`) ou cole sua chave acima. "
+            "O Painel continua funcionando sem chave."
         )
         return
 
@@ -100,7 +147,9 @@ def render_conversa(df: pd.DataFrame) -> None:
         # Conversa com o agente (loop de tool-calling dentro de agente.conversar).
         historico_aberto = [dict(m) for m in historico if m.get("role") in ("user", "assistant")]
         with st.spinner("Pensando... (o modelo escolhe as ferramentas)"):
-            resposta_final = conversar(df, pergunta, historico=historico_aberto)
+            resposta_final = conversar(
+                df, pergunta, historico=historico_aberto, api_key=_chave_atual()
+            )
 
         st.session_state.historico.append({"role": "user", "content": pergunta})
         st.session_state.historico.append({"role": "assistant", "content": resposta_final})

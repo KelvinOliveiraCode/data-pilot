@@ -124,8 +124,9 @@ def test_render_conversa_sem_chave_mostra_info(
     st_mock.info.assert_called()
     msg = st_mock.info.call_args.args[0]
     assert "OPENROUTER_API_KEY" in msg
-    # sem chave: não chama o agente
-    st_mock.button.assert_not_called()
+    # sem chave: mensagem de configuração aparece e a conversa não segue para
+    # o formulário de pergunta (form_submit_button não é acionado como no fluxo com chave)
+    assert not st_mock.form_submit_button.called, "sem chave nao deveria oferecer envio"
 
 
 def test_render_conversa_com_chave_fluxo(

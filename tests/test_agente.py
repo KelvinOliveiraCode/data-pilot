@@ -44,6 +44,50 @@ def _tool_call(nome: str, args: dict[str, Any], id_: str = "call_1") -> dict[str
     }
 
 
+def test_resolver_chave_override_tem_precedencia(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Chave digitada na UI (override) tem precedência sobre o env."""
+    monkeypatch.setenv("OPENROUTER_API_KEY", "env-key")
+    assert agente._resolver_chave("ui-key") == "ui-key"
+    assert agente._resolver_chave("  ui-key  ") == "ui-key"
+    assert agente._resolver_chave("") == "env-key"
+    assert agente._resolver_chave(None) == "env-key"
+    monkeypatch.setenv("OPENROUTER_API_KEY", "")
+    assert agente._resolver_chave(None) == ""
+    assert agente._resolver_chave("") == ""
+
+
+def test_conversar_usa_api_key_override(monkeypatch: pytest.MonkeyPatch) -> None:
+    """conversar() aceita api_key direto (sessão) sem precisar do env."""
+    visto: dict[str, Any] = {}
+
+    def fake(
+        model: str,
+        messages: list,
+        tools: Any = None,
+        api_key: str = "",
+        base_url: str = "",
+    ) -> dict[str, Any]:
+        visto["api_key"] = api_key
+        return {"content": "ok", "tool_calls": []}
+
+    monkeypatch.setattr(agente, "chamar_openrouter", fake)
+    _set_cfg(monkeypatch, ("", agente.MODELO_PADRAO, agente.BASE_URL_PADRAO))
+    mini = pd.DataFrame(
+        {
+            "data_pedido": pd.to_datetime(["2024-01-05"]),
+            "cliente": ["Ana"],
+            "categoria": ["Eletronicos"],
+            "status": ["concluido"],
+            "cidade": ["Sao Paulo"],
+            "quantidade": [1],
+            "valor_unitario": [100.0],
+            "receita": [100.0],
+        }
+    )
+    assert agente.conversar(mini, "oi", api_key="session-key") == "ok"
+    assert visto["api_key"] == "session-key"
+
+
 def test_chamar_openrouter_sem_chave_levanta_runtime(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
     with pytest.raises(RuntimeError, match="OPENROUTER_API_KEY"):

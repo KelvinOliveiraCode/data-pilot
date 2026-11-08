@@ -9,10 +9,23 @@
 
 from __future__ import annotations
 
+import os
+import sys
+from pathlib import Path
+
 import streamlit as st
 
-from .dados import carregar_dados
-from .painel import render_painel
+# app.py é executado como script solto pelo Streamlit (`streamlit run .../app.py`),
+# sem package parent => `from .dados import ...` falha com
+# "ImportError: attempted relative import with no known parent package".
+# Solução: garantir que a pasta src/ entra no sys.path e usar imports absolutos.
+# (Com `python -m data_pilot.app` ou `data-pilot` também funciona.)
+_SRC = Path(__file__).resolve().parents[1]
+if str(_SRC) not in sys.path:
+    sys.path.insert(0, str(_SRC))
+
+from data_pilot.dados import carregar_dados  # noqa: E402
+from data_pilot.painel import render_painel  # noqa: E402
 
 
 def _carregar() -> object:
@@ -21,9 +34,13 @@ def _carregar() -> object:
     carregar_dados já gera sintético determinístico quando o arquivo falta;
     aqui apenas detectamos a ausência do arquivo para avisar o usuário.
     """
-    from pathlib import Path
-
-    path = Path("data/sales.csv")
+    # Resolve o CSV a partir da raiz do repo (ou do CWD se existirem diferenças)
+    _candidates = [
+        Path("data/sales.csv"),
+        Path(__file__).resolve().parents[2] / "data" / "sales.csv",
+    ]
+    path = next((p for p in _candidates if p.exists()), _candidates[0])
+    _ = os  # (mantido para compatibilidade futura com paths relativos)
     if not path.exists():
         st.warning(
             "Arquivo `data/sales.csv` não encontrado — usando dados sintéticos "
@@ -48,7 +65,7 @@ def main() -> None:
 
     with aba_conversa:
         try:
-            from .conversa import render_conversa
+            from data_pilot.conversa import render_conversa
 
             render_conversa(df)
         except ImportError:
